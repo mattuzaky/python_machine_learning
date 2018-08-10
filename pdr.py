@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap
 
-def plot_decision_regions(X, y, classifier, resolution = 0.02):
+def plot_decision_regions(X, y, classifier, test_idx = None, resolution = 0.02):
   markers = ('s', 'x', 'o', '^', 'v')
   colors = ('red', 'blue', 'lightgreen', 'gray', 'cyan')
   # np.unique(y): array変数 y の重複をなくしたものを返す
@@ -28,3 +28,7 @@ def plot_decision_regions(X, y, classifier, resolution = 0.02):
     plt.scatter(x = X[y == cl, 0], y = X[y == cl, 1], alpha = 0.8, c = cmap(idx), marker = markers[idx], label = cl)
     #X[y == cl, ~]: y == cl に対応するX
 
+  # テストサンプルの強調
+  if test_idx:
+    X_test, y_test = X[test_idx, :], y[test_idx]
+    plt.scatter(X_test[:, 0], X_test[:, 1], c = '', alpha = 1.0, linewidths = 1, marker = 'o', s = 55, label = 'test set')
